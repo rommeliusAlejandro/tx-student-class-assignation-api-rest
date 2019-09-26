@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.rest;
 
 import com.rloayza.classroom.restapi.command.CreateClassCmd;
+import com.rloayza.classroom.restapi.command.DeleteClassCmd;
 import com.rloayza.classroom.restapi.command.UpdateClassCmd;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
 import com.rloayza.classroom.restapi.request.ClassRequest;
@@ -41,5 +42,17 @@ public class ClassController {
         updateClassCmd.setClassRequest(classRequest);
 
         updateClassCmd.execute();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/{classCode}"
+    )
+    public void delete(@PathVariable UUID classCode) {
+
+        DeleteClassCmd deleteClassCmd = (DeleteClassCmd) commandFactory.getCommand(DeleteClassCmd.class);
+        deleteClassCmd.setClassCode(classCode);
+
+        deleteClassCmd.execute();
     }
 }

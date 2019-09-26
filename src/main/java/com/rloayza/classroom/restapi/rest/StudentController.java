@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.rest;
 
 import com.rloayza.classroom.restapi.command.CreateStudentCmd;
+import com.rloayza.classroom.restapi.command.DeleteStudentCmd;
 import com.rloayza.classroom.restapi.command.UpdateStudentCmd;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
 import com.rloayza.classroom.restapi.request.StudentRequest;
@@ -33,11 +34,23 @@ public class StudentController {
             value = "/{id}"
     )
     public void update(@RequestBody StudentRequest studentRequest, @PathVariable Integer id) {
+
         UpdateStudentCmd updateStudentCmd = (UpdateStudentCmd) commandFactory.getCommand(UpdateStudentCmd.class);
         updateStudentCmd.setStudentId(id);
         updateStudentCmd.setStudentRequest(studentRequest);
 
         updateStudentCmd.execute();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/{id}"
+    )
+    public void delete(@PathVariable Integer id) {
+
+        DeleteStudentCmd deleteStudentCmd = (DeleteStudentCmd) commandFactory.getCommand(DeleteStudentCmd.class);
+        deleteStudentCmd.setStudentId(id);
+        deleteStudentCmd.execute();
     }
 
 
