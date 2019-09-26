@@ -1,13 +1,11 @@
 package com.rloayza.classroom.restapi.rest;
 
 import com.rloayza.classroom.restapi.command.CreateStudentCmd;
+import com.rloayza.classroom.restapi.command.UpdateStudentCmd;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
 import com.rloayza.classroom.restapi.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(
@@ -29,5 +27,19 @@ public class StudentController {
 
         return createStudentCmd.getStudentRequest();
     }
+
+    @RequestMapping(
+            method = RequestMethod.PATCH,
+            value = "/{id}"
+    )
+    public void update(@RequestBody StudentRequest studentRequest, @PathVariable Integer id) {
+        UpdateStudentCmd updateStudentCmd = (UpdateStudentCmd) commandFactory.getCommand(UpdateStudentCmd.class);
+        updateStudentCmd.setStudentId(id);
+        updateStudentCmd.setStudentRequest(studentRequest);
+
+        updateStudentCmd.execute();
+    }
+
+
 
 }
