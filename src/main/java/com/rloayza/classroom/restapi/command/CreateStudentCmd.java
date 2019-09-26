@@ -7,6 +7,8 @@ import com.rloayza.classroom.restapi.repository.StudentRepository;
 import com.rloayza.classroom.restapi.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 @RequestScope
 public class CreateStudentCmd implements Command {
 
@@ -20,6 +22,7 @@ public class CreateStudentCmd implements Command {
         Student student =  new Student();
         student.setFirstName(this.getStudentRequest().getFirstName());
         student.setLastName(this.getStudentRequest().getLastName());
+        student.setCreatedOn(new Date());
 
         repository.save(student);
 

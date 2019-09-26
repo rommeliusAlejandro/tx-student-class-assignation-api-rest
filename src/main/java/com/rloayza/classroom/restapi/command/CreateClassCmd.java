@@ -7,6 +7,8 @@ import com.rloayza.classroom.restapi.repository.ClassRepository;
 import com.rloayza.classroom.restapi.request.ClassRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 @RequestScope
 public class CreateClassCmd implements Command {
 
@@ -20,6 +22,7 @@ public class CreateClassCmd implements Command {
         Clazz clazz = new Clazz();
         clazz.setDescription(this.getClassRequest().getDescription());
         clazz.setTitle(this.getClassRequest().getTitle());
+        clazz.setCreatedOn(new Date());
 
         classRepository.save(clazz);
 

@@ -7,11 +7,16 @@ import com.rloayza.classroom.restapi.repository.StudentRepository;
 import com.rloayza.classroom.restapi.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 @RequestScope
 public class UpdateStudentCmd implements Command {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private FindStudentCmd findStudentCmd;
 
     private StudentRequest studentRequest;
 
@@ -19,10 +24,14 @@ public class UpdateStudentCmd implements Command {
 
     @Override
     public void execute() {
-        Student student = new Student();
+        findStudentCmd.setStudentId(studentId);
+        findStudentCmd.execute();
+        Student student = findStudentCmd.getStudent();
+
         student.setFirstName(studentRequest.getFirstName());
         student.setLastName(studentRequest.getLastName());
         student.setStudentId(getStudentId());
+        student.setUpdatedOn(new Date());
 
         studentRepository.save(student);
     }

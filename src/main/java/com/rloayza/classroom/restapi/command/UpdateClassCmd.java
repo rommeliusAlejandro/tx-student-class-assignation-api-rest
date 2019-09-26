@@ -7,6 +7,7 @@ import com.rloayza.classroom.restapi.repository.ClassRepository;
 import com.rloayza.classroom.restapi.request.ClassRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.UUID;
 
 @RequestScope
@@ -15,16 +16,24 @@ public class UpdateClassCmd implements Command {
     @Autowired
     private ClassRepository classRepository;
 
+    @Autowired
+    private FindClassCmd findClassCmd;
+
     private UUID classCode;
 
     private ClassRequest classRequest;
 
     @Override
     public void execute() {
-        Clazz clazz = new Clazz();
+
+        findClassCmd.setCode(classCode);
+        findClassCmd.execute();
+
+        Clazz clazz = findClassCmd.getClazz();
         clazz.setDescription(this.getClassRequest().getDescription());
         clazz.setTitle(this.getClassRequest().getTitle());
         clazz.setCode(classCode);
+        clazz.setUpdatedOn(new Date());
 
         classRepository.save(clazz);
     }

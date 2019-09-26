@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Student")
@@ -16,6 +17,12 @@ public class Student {
 
     @Column
     private String lastName;
+
+    @Column
+    private Date createdOn;
+
+    @Column
+    private Date updatedOn;
 
     public Integer getStudentId() {
         return studentId;
@@ -39,5 +46,21 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }
