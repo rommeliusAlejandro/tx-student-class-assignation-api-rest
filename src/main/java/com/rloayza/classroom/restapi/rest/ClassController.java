@@ -1,13 +1,14 @@
 package com.rloayza.classroom.restapi.rest;
 
-import com.rloayza.classroom.restapi.command.CreateClassCmd;
-import com.rloayza.classroom.restapi.command.DeleteClassCmd;
-import com.rloayza.classroom.restapi.command.UpdateClassCmd;
+import com.rloayza.classroom.restapi.command.*;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
+import com.rloayza.classroom.restapi.model.Clazz;
+import com.rloayza.classroom.restapi.model.Student;
 import com.rloayza.classroom.restapi.request.ClassRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -54,5 +55,22 @@ public class ClassController {
         deleteClassCmd.setClassCode(classCode);
 
         deleteClassCmd.execute();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET
+    )
+    public List<Clazz> getAll(@RequestParam(required = false, defaultValue = "0") Integer pageNumber,
+                              @RequestParam(required = false) Integer pageSize,
+                              @RequestParam(required = false) String search) {
+
+        ListAllClassesCmd listAllClassesCmd = (ListAllClassesCmd) commandFactory.getCommand(ListAllClassesCmd.class);
+
+        listAllClassesCmd.setPageNumber(pageNumber);
+        listAllClassesCmd.setPageSize(pageSize);
+        listAllClassesCmd.setSearch(search);
+        listAllClassesCmd.execute();
+
+        return listAllClassesCmd.getClazzes();
     }
 }

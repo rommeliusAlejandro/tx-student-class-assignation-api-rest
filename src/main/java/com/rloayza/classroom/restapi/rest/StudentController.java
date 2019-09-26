@@ -2,11 +2,15 @@ package com.rloayza.classroom.restapi.rest;
 
 import com.rloayza.classroom.restapi.command.CreateStudentCmd;
 import com.rloayza.classroom.restapi.command.DeleteStudentCmd;
+import com.rloayza.classroom.restapi.command.ListAllStudentsCmd;
 import com.rloayza.classroom.restapi.command.UpdateStudentCmd;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
+import com.rloayza.classroom.restapi.model.Student;
 import com.rloayza.classroom.restapi.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(
@@ -51,6 +55,23 @@ public class StudentController {
         DeleteStudentCmd deleteStudentCmd = (DeleteStudentCmd) commandFactory.getCommand(DeleteStudentCmd.class);
         deleteStudentCmd.setStudentId(id);
         deleteStudentCmd.execute();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET
+    )
+    public List<Student> getAll(@RequestParam(required = false, defaultValue = "0") Integer pageNumber,
+                                @RequestParam(required = false) Integer pageSize,
+                                @RequestParam(required = false) String search) {
+
+        ListAllStudentsCmd listAllStudentsCmd = (ListAllStudentsCmd) commandFactory.getCommand(ListAllStudentsCmd.class);
+
+        listAllStudentsCmd.setPageNumber(pageNumber);
+        listAllStudentsCmd.setPageSize(pageSize);
+        listAllStudentsCmd.setSearch(search);
+        listAllStudentsCmd.execute();
+
+        return listAllStudentsCmd.getStudents();
     }
 
 
