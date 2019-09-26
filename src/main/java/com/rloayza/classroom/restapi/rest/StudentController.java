@@ -1,10 +1,8 @@
 package com.rloayza.classroom.restapi.rest;
 
-import com.rloayza.classroom.restapi.command.CreateStudentCmd;
-import com.rloayza.classroom.restapi.command.DeleteStudentCmd;
-import com.rloayza.classroom.restapi.command.ListAllStudentsCmd;
-import com.rloayza.classroom.restapi.command.UpdateStudentCmd;
+import com.rloayza.classroom.restapi.command.*;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
+import com.rloayza.classroom.restapi.model.Clazz;
 import com.rloayza.classroom.restapi.model.Student;
 import com.rloayza.classroom.restapi.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +70,19 @@ public class StudentController {
         listAllStudentsCmd.execute();
 
         return listAllStudentsCmd.getStudents();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/{studentId}/classes"
+    )
+    public List<Clazz> getAllUserClasses(@PathVariable Integer studentId) {
+        ListAllUserClassesCmd listAllUserClassesCmd = (ListAllUserClassesCmd) commandFactory.getCommand(ListAllUserClassesCmd.class);
+        listAllUserClassesCmd.setStudentId(studentId);
+        listAllUserClassesCmd.execute();
+
+        return listAllUserClassesCmd.getClazzes();
+
     }
 
 

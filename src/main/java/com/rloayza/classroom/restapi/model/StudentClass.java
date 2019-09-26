@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.model;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "StudentClass")
@@ -11,11 +12,11 @@ public class StudentClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    private Student student;
+    @Column
+    private Integer studentId;
 
-    @ManyToOne
-    private Clazz clazz;
+    @Column
+    private UUID classCode;
 
     public Integer getId() {
         return id;
@@ -25,19 +26,19 @@ public class StudentClass {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public Integer getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
-    public Clazz getClazz() {
-        return clazz;
+    public UUID getClassCode() {
+        return classCode;
     }
 
-    public void setClazz(Clazz clazz) {
-        this.clazz = clazz;
+    public void setClassCode(UUID classCode) {
+        this.classCode = classCode;
     }
 }

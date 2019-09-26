@@ -73,4 +73,17 @@ public class ClassController {
 
         return listAllClassesCmd.getClazzes();
     }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/{classCode}/students"
+    )
+    public List<Student> getAllClassStudents(@PathVariable UUID classCode) {
+        ListAllClassStudentsCmd listAllClassStudentsCmd = (ListAllClassStudentsCmd) commandFactory.getCommand(ListAllClassStudentsCmd.class);
+        listAllClassStudentsCmd.setClassCode(classCode);
+        listAllClassStudentsCmd.execute();
+
+        return listAllClassStudentsCmd.getStudents();
+
+    }
 }

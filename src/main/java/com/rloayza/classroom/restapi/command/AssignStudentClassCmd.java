@@ -2,8 +2,6 @@ package com.rloayza.classroom.restapi.command;
 
 import com.rloayza.classroom.restapi.config.RequestScope;
 import com.rloayza.classroom.restapi.framework.Command;
-import com.rloayza.classroom.restapi.model.Clazz;
-import com.rloayza.classroom.restapi.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
@@ -26,16 +24,8 @@ public class AssignStudentClassCmd implements Command {
 
     @Override
     public void execute() {
-        findStudentCmd.setStudentId(studentId);
-        findStudentCmd.execute();
-        Student student = findStudentCmd.getStudent();
-
-        findClassCmd.setCode(clazzCode);
-        findClassCmd.execute();
-        Clazz clazz = findClassCmd.getClazz();
-
-        createStudentClassCmd.setClazz(clazz);
-        createStudentClassCmd.setStudent(student);
+        createStudentClassCmd.setClazzCode(clazzCode);
+        createStudentClassCmd.setStudentId(studentId);
         createStudentClassCmd.execute();
     }
 

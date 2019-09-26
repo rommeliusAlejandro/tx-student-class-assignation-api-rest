@@ -2,12 +2,11 @@ package com.rloayza.classroom.restapi.command;
 
 import com.rloayza.classroom.restapi.config.RequestScope;
 import com.rloayza.classroom.restapi.framework.Command;
-import com.rloayza.classroom.restapi.model.Clazz;
-import com.rloayza.classroom.restapi.model.Student;
 import com.rloayza.classroom.restapi.model.StudentClass;
 import com.rloayza.classroom.restapi.repository.StudentClassRepository;
-import com.rloayza.classroom.restapi.request.StudentClassRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.UUID;
 
 @RequestScope
 public class CreateStudentClassCmd implements Command {
@@ -15,32 +14,32 @@ public class CreateStudentClassCmd implements Command {
     @Autowired
     private StudentClassRepository repository;
 
-    private Student student;
+    private Integer studentId;
 
-    private Clazz clazz;
+    private UUID clazzCode;
 
     @Override
     public void execute() {
         StudentClass studentClass = new StudentClass();
-        studentClass.setStudent(getStudent());
-        studentClass.setClazz(getClazz());
+        studentClass.setStudentId(getStudentId());
+        studentClass.setClassCode(getClazzCode());
 
         repository.save(studentClass);
     }
 
-    public Student getStudent() {
-        return student;
+    public Integer getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
-    public Clazz getClazz() {
-        return clazz;
+    public UUID getClazzCode() {
+        return clazzCode;
     }
 
-    public void setClazz(Clazz clazz) {
-        this.clazz = clazz;
+    public void setClazzCode(UUID clazzCode) {
+        this.clazzCode = clazzCode;
     }
 }

@@ -21,7 +21,7 @@ public class FindStudentClassByClazzCodeCmd implements Command {
 
     @Override
     public void execute() {
-        studentClass  = studentClassRepository.findByClazzCode(clazzCode);
+        studentClass  = studentClassRepository.findByClassCode(clazzCode);
     }
 
     public void setClazzCode(UUID clazzCode) {

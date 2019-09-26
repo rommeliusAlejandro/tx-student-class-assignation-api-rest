@@ -2,14 +2,11 @@ package com.rloayza.classroom.restapi.command;
 
 import com.rloayza.classroom.restapi.config.RequestScope;
 import com.rloayza.classroom.restapi.framework.Command;
-import com.rloayza.classroom.restapi.model.Clazz;
 import com.rloayza.classroom.restapi.model.StudentClass;
-import com.rloayza.classroom.restapi.repository.ClassRepository;
 import com.rloayza.classroom.restapi.repository.StudentClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequestScope
 public class FindStudentClassByStudentIdCmd implements Command {
@@ -23,7 +20,7 @@ public class FindStudentClassByStudentIdCmd implements Command {
 
     @Override
     public void execute() {
-        studentClass  = studentClassRepository.findByStudentStudentId(studentId);
+        studentClass  = studentClassRepository.findByStudentId(studentId);
     }
 
     public void setStudentId(Integer studentId) {
