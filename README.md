@@ -22,4 +22,62 @@
 #### Domain Model 
 ![Domain Model](docs/domain-model.png)
 
+### How to use 
+#### Create artifact
+* This is a maven project. To build the artifact run:
+`mvn package`
+* This will create a jar file
+* Runt jar file with: `restapi-0.0.1-SNAPSHOT.jar`
+* A Docker file has been added to build an image. However, it is required to build the artifact before creating the image
+* Port 9090  is used. Therefore access to the API using {host}:9090/
+#### API DOC
+
+**Student**
+**Controller**: _rest/StudentController.java_
+###### Create
+* Path: `/student`
+* Method: POST
+* Payload: StudentRequest
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|firstName|String|Student First Name|
+|lastName|String|Student Last Name|
+
+* Response: StudentRequest
+
+###### Update
+* Path: `/student/{id}`
+* Method: PATCH
+* Path variable: {id} to be replaced studentId
+* Payload: StudentRequest
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|firstName|String|Student First Name|
+|lastName|String|Student Last Name|
+
+* Response: None
+
+###### Delete
+* Path: `/student/{id}`
+* Method: DELETE
+* Path variable: {id} to be replaced studentId
+* Response: None
+
+###### Get
+* Path: `/student/`
+* Method: GET
+* Request Params
+
+| Param | Type | Required | Default | Format
+|-------|------|----------|---------|-------|
+|pageNumber|Integer|No|0|
+|pageSize|Integer|No|--|
+|search|String|No|--| `column:value`|
+* Response: Paged Students List
+
+
+
+
 
