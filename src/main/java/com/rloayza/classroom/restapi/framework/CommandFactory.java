@@ -10,6 +10,10 @@ public class CommandFactory {
     @Autowired
     private ApplicationContext applicationContext;
 
+    /**
+     * @param commandClazz is the class name for the Command implementation that is wanted to be get
+     * @return Returns desired command bean
+     */
     public Command getCommand(Class<? extends Command> commandClazz) {
         return applicationContext.getBean(commandClazz);
     }
