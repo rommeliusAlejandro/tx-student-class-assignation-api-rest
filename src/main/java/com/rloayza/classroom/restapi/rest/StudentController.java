@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.rest;
 
 import com.rloayza.classroom.restapi.command.*;
+import com.rloayza.classroom.restapi.exceptions.APIException;
 import com.rloayza.classroom.restapi.framework.CommandFactory;
 import com.rloayza.classroom.restapi.model.Clazz;
 import com.rloayza.classroom.restapi.model.Student;
@@ -41,7 +42,12 @@ public class StudentController {
         updateStudentCmd.setStudentId(id);
         updateStudentCmd.setStudentRequest(studentRequest);
 
-        updateStudentCmd.execute();
+        try {
+            updateStudentCmd.execute();
+        } catch (APIException e) {
+            //TODO: Handle properly the error
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(

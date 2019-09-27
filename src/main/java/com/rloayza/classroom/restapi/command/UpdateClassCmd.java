@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.command;
 
 import com.rloayza.classroom.restapi.config.RequestScope;
+import com.rloayza.classroom.restapi.exceptions.APIException;
 import com.rloayza.classroom.restapi.framework.Command;
 import com.rloayza.classroom.restapi.model.Clazz;
 import com.rloayza.classroom.restapi.repository.ClassRepository;
@@ -24,7 +25,7 @@ public class UpdateClassCmd implements Command {
     private ClassRequest classRequest;
 
     @Override
-    public void execute() {
+    public void execute() throws APIException  {
 
         findClassCmd.setCode(classCode);
         findClassCmd.execute();

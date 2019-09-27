@@ -1,6 +1,7 @@
 package com.rloayza.classroom.restapi.command;
 
 import com.rloayza.classroom.restapi.config.RequestScope;
+import com.rloayza.classroom.restapi.exceptions.APIException;
 import com.rloayza.classroom.restapi.framework.Command;
 import com.rloayza.classroom.restapi.model.Student;
 import com.rloayza.classroom.restapi.repository.StudentRepository;
@@ -23,7 +24,7 @@ public class UpdateStudentCmd implements Command {
     private Integer studentId;
 
     @Override
-    public void execute() {
+    public void execute() throws APIException {
         findStudentCmd.setStudentId(studentId);
         findStudentCmd.execute();
         Student student = findStudentCmd.getStudent();
